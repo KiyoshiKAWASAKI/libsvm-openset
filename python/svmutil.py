@@ -111,6 +111,7 @@ def svm_train(arg1, arg2=None, arg3=None):
 	    -v n: n-fold cross validation mode
 	    -q : quiet mode (no outputs)
 	"""
+	print("*" * 40)
 	prob, param = None, None
 	if isinstance(arg1, (list, tuple)):
 		assert isinstance(arg2, (list, tuple))

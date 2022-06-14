@@ -84,7 +84,7 @@ $> cmake -DCMAKE_BUILD_TYPE=Debug ..
 $> make
 
 libsvm-openset Quick Build Instruction:
-Once libMR is build, next step is to specify the absolute path of libMR directory in Makefile available in libsvm-openset. Paste the absolute path of libMR folder in variable "LIBMR_DIR" in Makefile (line 2 of Makefile). For example: LIBMR_DIR = /Users/username/libsvm-openset/libMR
+Oncce libMR is build, next step is to specify the absolute path of libMR directory in Makefile available in libsvm-openset. Paste the absolute path of libMR folder in variable "LIBMR_DIR" in Makefile (line 2 of Makefile). For example: LIBMR_DIR = /Users/username/libsvm-openset/libMR
 On linux/mac systems, type `make' to build the `svm-train' and `svm-predict' programs. Run them without arguments to show the usages of them.
 e.g:
 $> cd libsvm-openset
