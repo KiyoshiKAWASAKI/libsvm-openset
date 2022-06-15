@@ -6,8 +6,20 @@ import numpy as np
 
 
 
-seed = 0
-epoch = 147
+# seed = 0
+# epoch = 147
+
+# seed = 1
+# epoch = 181
+
+# seed = 2
+# epoch = 195
+
+# seed = 3
+# epoch = 142
+
+seed = 4
+epoch = 120
 
 model_base_dir = "/afs/crc.nd.edu/user/j/jhuang24/scratch_50/jhuang24/models/" \
                  "msd_net/2022-02-13/known_only_cross_entropy"
@@ -85,6 +97,7 @@ feature_save_base = model_base_dir + "/seed_" + str(seed)
 
 
 
+
 def reformat_feature(original_known_feature,
                      original_label,
                      feature_save_path,
@@ -92,8 +105,11 @@ def reformat_feature(original_known_feature,
                      nb_known_class=293):
     """
 
-    :param original_feature:
+    :param original_known_feature:
+    :param original_label:
     :param feature_save_path:
+    :param original_unknown_feature:
+    :param nb_known_class:
     :return:
     """
     formatted_feature = ""
@@ -126,6 +142,51 @@ def reformat_feature(original_known_feature,
 
                 formatted_feature += one_line + "\n"
 
+        f.write(formatted_feature)
+
+    print("File saved to: ", feature_save_path)
+
+
+
+
+def gen_debug_feature(original_known_feature,
+                      original_label,
+                      feature_save_path,
+                      nb_known_class=293):
+    """
+
+    :param original_known_feature:
+    :param original_label:
+    :param feature_save_path:
+    :return:
+    """
+    formatted_feature = ""
+    label_list = {}
+
+    for i in range(nb_known_class):
+        label_list[i] = 0
+
+    print(label_list)
+
+    with open(feature_save_path, 'w') as f:
+        for i in range(original_label.shape[0]):
+            one_label = original_label[i]
+            one_line = str(one_label) + " "
+
+            if label_list[one_label] != 3:
+                label_list[one_label] += 1
+
+                for j in range(original_known_feature.shape[1]):
+                    index = j
+                    one_feature = original_known_feature[i][j]
+                    one_entry_pair = str(index) + ":" + str(one_feature) + " "
+
+                    one_line += one_entry_pair
+
+                formatted_feature += one_line + "\n"
+
+            else:
+                pass
 
         f.write(formatted_feature)
 
@@ -143,3 +204,7 @@ if __name__ == "__main__":
                      original_label=test_known_labels,
                      original_unknown_feature=reduced_test_unknown_feature,
                      feature_save_path=os.path.join(feature_save_base, "test_feature"))
+
+    # gen_debug_feature(original_known_feature=reduced_train_feature,
+    #                   original_label=train_labels,
+    #                   feature_save_path=os.path.join(feature_save_base, "train_feature_debug"))
